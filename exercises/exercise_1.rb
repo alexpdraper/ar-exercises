@@ -10,14 +10,17 @@ class Store < ActiveRecord::Base
   validates :annual_revenue, presence: true, numericality: {only_integer: true}
   validate :must_sell_mens_or_womens_apparel
 
-  def must_sell_mens_or_womens_apparel
-    if !mens_apparel && !womens_apparel
-      errors.add(:mens_apparel, 'At least one of men\'s apparel or women\'s' +
-      ' apparel must be true')
-      errors.add(:womens_apparel, 'At least one of men\'s apparel or women\'s' +
-      ' apparel must be true')
+  private
+    def must_sell_mens_or_womens_apparel
+      if !mens_apparel && !womens_apparel
+        errors.add(:mens_apparel, 'At least one of men\'s apparel or women\'s' +
+        ' apparel must be true')
+        errors.add(:womens_apparel, 'At least one of men\'s apparel or women\'s' +
+        ' apparel must be true')
+      end
     end
-  end
+
+    before_destroy {false if self.employees.count > 0}
 end
 
 Store.create(name: 'Burnaby',
