@@ -8,4 +8,4 @@ puts "----------"
 @store1 = Store.find(1)
 @store2 = Store.find(2)
 
-@store1.update(name: 'Gasvillage')
+@store1.update(name: 'Deer Lake')
