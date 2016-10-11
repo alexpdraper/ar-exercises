@@ -17,6 +17,11 @@ class Employee < ActiveRecord::Base
     greater_than_or_equal_to: 40,
     less_than_or_equal_to: 200
   }
+
+  private
+    before_create do
+      self.password = 8.times.map { [*'0'..'9', *'a'..'z'].sample }.join
+    end
 end
 
 @store1.employees.create(first_name: "Khurram",
